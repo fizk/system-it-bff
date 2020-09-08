@@ -1,4 +1,4 @@
-import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLFieldConfig, GraphQLNonNull, GraphQLID } from "graphql";
 import Artist from "../types/Artist";
 import type { Context, Unit } from '../definition';
 
@@ -6,7 +6,7 @@ const type: GraphQLFieldConfig<null, Context> = {
     type: Artist,
     args: {
         id: {
-            type: new GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLID),
         },
     },
 

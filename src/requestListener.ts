@@ -15,12 +15,14 @@ export default (request: IncomingMessage, response: ServerResponse) => {
         graphql(
             schema,
             json.query,
-            json.variables,
+            null,
             { client: client({
                 connection: 'keep-alive',
                 authorization: request.headers.authorization || '',
                 'x-transaction': request.headers['x-transaction'] || '',
-            }) }
+            })},
+            json.variables,
+            json.operationName
         ).then(result => {
             const chunk = Buffer.from(JSON.stringify(result, undefined, 4), 'utf8');
             response.setHeader('Content-Type', 'application/json' + '; charset=utf-8');

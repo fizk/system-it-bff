@@ -1,0 +1,11 @@
+{
+  "name": "Schema",
+  "extensions": {
+    "endpoints": {
+      "GraphQL Endpoint": {
+        "url": "http://localhost:8080",
+        "introspect": true
+      }
+    }
+  }
+}

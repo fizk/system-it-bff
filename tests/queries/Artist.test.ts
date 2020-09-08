@@ -1,5 +1,5 @@
-import { GraphQLSchema, GraphQLObjectType, graphql } from "graphql";
-import Artist from '../../src/queries/Artist';
+import { graphql } from "graphql";
+import schema from '../../src/schema';
 
 it('Test get Group - common fields', async () => {
     const mock = {
@@ -9,14 +9,7 @@ it('Test get Group - common fields', async () => {
             __mime: 'artist/group'
         })
     };
-    const schema = new GraphQLSchema({
-        query: new GraphQLObjectType({
-            name: 'Query',
-            fields: {
-                Artist,
-            }
-        }),
-    });
+
     const query = `{
         Artist(id: "1234") {
             __typename
@@ -47,14 +40,7 @@ it('Test get Individual - common fields', async () => {
             __mime: 'artist/individual'
         })
     };
-    const schema = new GraphQLSchema({
-        query: new GraphQLObjectType({
-            name: 'Query',
-            fields: {
-                Artist,
-            }
-        }),
-    });
+
     const query = `{
         Artist(id: "1234") {
             __typename

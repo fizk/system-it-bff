@@ -1,19 +1,19 @@
-import { GraphQLObjectType, GraphQLString } from 'graphql';
+import { GraphQLObjectType, GraphQLString, GraphQLNonNull } from 'graphql';
 
 const type: GraphQLObjectType = new GraphQLObjectType({
     name: 'Mime',
     fields: () => ({
         type: {
-            type: GraphQLString,
+            type: new GraphQLNonNull(GraphQLString),
             resolve: ({ type }) => type
         },
         category: {
-            type: GraphQLString,
+            type: new GraphQLNonNull(GraphQLString),
             resolve: ({ category }) => category
         },
         tag: {
             type: GraphQLString,
-            resolve: ({ tag }) => tag
+            resolve: ({ tag }) => Boolean(tag) ? tag : null
         },
     }),
 });

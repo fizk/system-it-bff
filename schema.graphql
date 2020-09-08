@@ -1,0 +1,111 @@
+type Query {
+  Artist(id: String!): Artist
+  Artists: [Artist]
+  Collection(id: String!): Collection
+  Collections: [Collection]
+}
+
+union Artist = Individual | Group
+
+type Individual implements ArtistInterface {
+  id: String
+  name: String
+  _mime: Mime
+  albums: [CollectionAndReference]
+  singles: [CollectionAndReference]
+  eps: [CollectionAndReference]
+  compilations: [CollectionAndReference]
+  memberOf: [Artist]
+}
+
+interface ArtistInterface {
+  id: String
+  name: String
+  _mime: Mime
+  albums: [CollectionAndReference]
+  singles: [CollectionAndReference]
+  eps: [CollectionAndReference]
+  compilations: [CollectionAndReference]
+}
+
+type Mime {
+  type: String
+  category: String
+  tag: String
+}
+
+type CollectionAndReference {
+  collection: Collection
+  reference: AlbumReference
+}
+
+union Collection = Album
+
+type Album implements CollectionInterface {
+  id: String
+  name: String
+  _mime: Mime
+}
+
+interface CollectionInterface {
+  id: String
+  name: String
+  _mime: Mime
+}
+
+type AlbumReference {
+  id: String
+  _unit: String
+  _mime: Mime
+}
+
+type Group implements ArtistInterface {
+  id: String
+  name: String
+  _mime: Mime
+  albums: [CollectionAndReference]
+  singles: [CollectionAndReference]
+  eps: [CollectionAndReference]
+  compilations: [CollectionAndReference]
+  membersIn: [ArtistAndMembership]
+}
+
+type ArtistAndMembership {
+  artist: Artist
+  membership: Membership
+}
+
+type Membership {
+  from: String
+  to: String
+}
+
+type Mutation {
+  createArtist(properties: ArtistInput!, category: ArtistCategory): Artist
+  createCollection(properties: CollectionInput!, category: CollectionCategory!, tag: CollectionTag): Album
+  addAlbum(artist_id: String!, album_id: String!, tag: String): CollectionAndReference
+  addMember(artist_id: String!, member_id: String!, category: ArtistCategory): ArtistAndMembership
+}
+
+input ArtistInput {
+  name: String
+}
+
+enum ArtistCategory {
+  GROUP
+  INDIVIDUAL
+}
+
+input CollectionInput {
+  name: String
+}
+
+enum CollectionCategory {
+  ALBUM
+}
+
+enum CollectionTag {
+  SINGLE
+  EP
+  COMPILATION
+}

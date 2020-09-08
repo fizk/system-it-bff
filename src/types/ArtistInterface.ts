@@ -1,4 +1,4 @@
-import { GraphQLInterfaceType, GraphQLString, GraphQLList } from "graphql";
+import { GraphQLInterfaceType, GraphQLString, GraphQLList, GraphQLNonNull, GraphQLID } from "graphql";
 import CollectionAndReference from './CollectionAndReference';
 import Mime from "./Mime";
 
@@ -6,10 +6,19 @@ const type: GraphQLInterfaceType = new GraphQLInterfaceType({
     name: 'ArtistInterface',
     fields: () => ({
         id: {
-            type: GraphQLString,
+            type: new GraphQLNonNull(GraphQLID),
         },
         name: {
             type: GraphQLString,
+        },
+        description: {
+            type: GraphQLString,
+        },
+        aka: {
+            type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
+        },
+        genres: {
+            type: new GraphQLNonNull(new GraphQLList(GraphQLString)),
         },
         _mime: {
             type: Mime,

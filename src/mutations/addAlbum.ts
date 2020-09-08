@@ -1,18 +1,19 @@
-import { GraphQLFieldConfig, GraphQLNonNull, GraphQLString } from "graphql";
+import { GraphQLFieldConfig, GraphQLNonNull, GraphQLID } from "graphql";
 import CollectionAndReference from "../types/CollectionAndReference";
+import AlbumTag from "../types/AlbumTag";
 import type { Context } from '../definition';
 
 const type: GraphQLFieldConfig<null, Context> = {
     type: CollectionAndReference,
     args: {
         artist_id: {
-            type: new GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLID),
         },
         album_id: {
-            type: new GraphQLNonNull(GraphQLString),
+            type: new GraphQLNonNull(GraphQLID),
         },
         tag: {
-            type: GraphQLString,
+            type: AlbumTag,
         },
     },
 
